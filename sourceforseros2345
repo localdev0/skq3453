@@ -926,7 +926,7 @@ do
         -- Helper function to round values to nearest increment (e.g., 0.1)
         local function round(x)
             local increment = self.values.increment or 0.1
-            return math.floor((x / increment) + 0.5) * increment
+            return math.floor((x / increment) + 0.1) * increment
         end
     
         local Container = panel:_Container(26, true)
