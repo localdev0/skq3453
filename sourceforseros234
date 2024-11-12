@@ -1033,8 +1033,8 @@ do
         -- This function updates the slider based on mouse position
         local function renderFromMouse()
             local clickedPercentage = (input:GetMouseLocation().X - SliderboxOutline.AbsolutePosition.X) / SliderboxOutline.AbsoluteSize.X
-            if clickedPercentage > 0.997 then clickedPercentage = 1 end
-            if clickedPercentage < 0.003 then clickedPercentage = 0 end
+            if clickedPercentage > 0.97 then clickedPercentage = 1 end
+            if clickedPercentage < 0.03 then clickedPercentage = 0 end
     
             renderFromPercent(clickedPercentage)
         end
