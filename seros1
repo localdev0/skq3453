@@ -917,14 +917,14 @@ do
     function panel.AddSlider(panel, data)
         local callback = data.callback or EmptyFunction
         local self = interactable.new()
-        self.values = data.values or {min=0, max=100, default=50, round=1}
+        self.values = data.values or {min=0,max=100,default=50,round=1}
     
         local text = data.title
         local value = panel:_GlobalTable()
         value[text] = self.values.default or 50
     
-        local function round(x) -- Number of 0's after 1 in data.values.round defines number of decimal places. 1 = x, 10 = x.x, 100 = x.xx
-            return math.floor((x * (self.values.round or 1)) + 0.5) / (self.values.round or 1)
+        local function round(x)
+            return math.floor((x * 10) + 0.5) / 10  -- Round to one decimal place
         end
     
         local Container = panel:_Container(26, true)
@@ -944,7 +944,7 @@ do
         --//Value box
         local ValueboxOutline, ValueboxInside = util.new("Frame", {
             Parent = Container,
-            Size = UDim2.new(0, 30, 0, 14), -- Text is size Y 16, keep inline with that
+            Size = UDim2.new(0, 30, 0, 14),
             Position = UDim2.new(1, -30, 0, 0),
             BackgroundColor3 = theme.InteractableOutline,
             Name = "ValueboxOutline"
@@ -985,7 +985,7 @@ do
                 Position = UDim2.new(0, -1, 0, 0),
                 BackgroundColor3 = theme.InteractableOutline,
                 ZIndex = 2,
-                Name = "SliderboxOutlineLeftWall" -- Reinforce left wall since when SliderboxFill size is negative (scale: 0, offset: -2) it leaks over edge
+                Name = "SliderboxOutlineLeftWall"
             })
         })
     
@@ -1001,28 +1001,29 @@ do
     
             local actualValue = round(percent * diff + min)
             ValueboxInside.Text = tostring(actualValue)
-    
+            
             SliderboxFill:TweenSize(UDim2.new(percent, -2, 1, -2), "In", "Linear", 0.05, true, function()
                 if SliderboxFill.AbsoluteSize.X < 0 then SliderboxFill.Size = UDim2.new(0, 0, 1, -2) end
             end)
     
             value[text] = actualValue
-            if override then return end
-            callback(actualValue)
+            if override then else
+                callback(actualValue)
+            end
         end
     
         local function renderFromValue(value, override)
             local min = self.values.min or 0
             local max = self.values.max or 0
             local diff = max - min
-    
+            
             renderFromPercent((value - min) / diff, override)
         end
     
         local function renderFromMouse()
             local clickedPercentage = (input:GetMouseLocation().X - SliderboxOutline.AbsolutePosition.X) / SliderboxOutline.AbsoluteSize.X
-            if clickedPercentage > 99.7 / 100 then clickedPercentage = 1 end
-            if clickedPercentage < 0.3 / 100 then clickedPercentage = 0 end
+            if clickedPercentage > 0.997 then clickedPercentage = 1 end
+            if clickedPercentage < 0.003 then clickedPercentage = 0 end
     
             renderFromPercent(clickedPercentage)
         end
@@ -1030,48 +1031,48 @@ do
         renderFromValue(self.values.default or 0, true)
     
         --//Connections
-        -- Slider interact
         Container.InputBegan:Connect(function(inp, gpe)
             if inp.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 isInteracting = true
             end
         end)
+    
         Container.InputEnded:Connect(function(inp, gpe)
             if inp.UserInputType == Enum.UserInputType.MouseButton1 and not gpe then
                 isInteracting = false
             end
         end)
+    
         RunService.RenderStepped:Connect(function()
             if isInteracting then
                 renderFromMouse()
             end
         end)
     
-        -- Value box hover
-        local isFocused = false
         ValueboxInside.Focused:Connect(function()
-            isFocused = true
             util.tween(ValueboxOutline, { BackgroundColor3 = theme.Accent }, 0.1)
         end)
+    
         ValueboxInside.FocusLost:Connect(function()
             if tonumber(ValueboxInside.Text) then
                 renderFromValue(tonumber(ValueboxInside.Text))
             end
-            isFocused = false
             util.tween(ValueboxOutline, { BackgroundColor3 = theme.InteractableOutline }, 0.1)
         end)
+    
         ValueboxOutline.MouseEnter:Connect(function()
             util.tween(ValueboxOutline, { BackgroundColor3 = theme.Accent }, 0.1)
         end)
+    
         ValueboxOutline.MouseLeave:Connect(function()
             if not isFocused then util.tween(ValueboxOutline, { BackgroundColor3 = theme.InteractableOutline }, 0.1) end
         end)
     
-        -- Container hover
         Container.MouseEnter:Connect(function()
             util.tween(SliderboxOutline, { BackgroundColor3 = theme.Accent }, 0.1)
             panel:SetTip(data.desc or "")
         end)
+    
         Container.MouseLeave:Connect(function()
             util.tween(SliderboxOutline, { BackgroundColor3 = theme.InteractableOutline }, 0.1)
             panel:SetTip("")
@@ -1081,7 +1082,7 @@ do
         panel.seperators[panel.currentSeperator][text] = renderFromValue
     
         return {
-            setPercent = renderFromPercent, --NOTE: Despite name, this takes value 0-1, not 0-100
+            setPercent = renderFromPercent,
             setValue = renderFromValue,
             getValue = function() return value[text] end,
             callback = callback
