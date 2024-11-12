@@ -54,7 +54,7 @@
     }
 
     /* Button styling */
-    .copy-button, .copy-bbl-button {
+    .copy-button {
       background-color: #32cd32; /* Green */
       color: white;
       border: none;
@@ -63,14 +63,18 @@
       font-size: 1.2em;
       cursor: pointer;
       margin-top: 15px;
-      margin-right: 10px;
     }
 
-    /* Button container */
-    .button-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .copy-button-ff2 {
+      background-color: #32cd32; /* Green */
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-left: 10px;
+      margin-top: 15px;
     }
 
     /* Link hover effect */
@@ -83,10 +87,8 @@
 
   <div class="frame">
     <div class="fade-text">SHADOW.CC, BEST HUBS OUT THERE</div>
-    <div class="button-container">
-      <button class="copy-button" onclick="copyToClipboard()">Copy FF2 Script</button>
-      <button class="copy-bbl-button" onclick="copyBBLScript()">Copy BBL Script</button>
-    </div>
+    <button class="copy-button" onclick="copyToClipboard()">Copy BBL Script</button>
+    <button class="copy-button-ff2" onclick="copyFF2Script()">FF2</button>
   </div>
 
   <!-- Link to shadow.cc/home -->
@@ -94,18 +96,18 @@
 
   <script>
     function copyToClipboard() {
-      const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/MobilesSupport/shadow.cc/best%20free%20script"))()';
+      const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/Basketball/Legends/Shadow.cc"))()';
       navigator.clipboard.writeText(text).then(() => {
-        alert("FF2 Script copied to clipboard!");
+        alert("Script copied to clipboard!");
       }).catch(err => {
         console.error("Failed to copy text: ", err);
       });
     }
 
-    function copyBBLScript() {
-      const bblText = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/Basketball/Legends/Shadow.cc"))()';
-      navigator.clipboard.writeText(bblText).then(() => {
-        alert("BBL Script copied to clipboard!");
+    function copyFF2Script() {
+      const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/MobilesSupport/shadow.cc/best%20free%20script"))()';
+      navigator.clipboard.writeText(text).then(() => {
+        alert("FF2 Script copied to clipboard!");
       }).catch(err => {
         console.error("Failed to copy text: ", err);
       });
