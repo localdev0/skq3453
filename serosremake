@@ -1090,20 +1090,17 @@ do
     end
     
 
-    function panel.AddDropdown(panel, data) --> Select one
+    function panel.AddDropdown(panel, data)
         local callback = data.callback or EmptyFunction
         local self = interactable.new()
         self.options = data.options or {}
         self.expanded = false
-        
-        --//ui.values
+
         local title = data.title
         local value = panel:_GlobalTable()
-        --Default is set when renderOptions() is called for first time
 
 
         local Container = panel:_Container(34, true)
-        --//Text
         util.new("TextLabel", {
             Parent = Container,
             Text = title,
