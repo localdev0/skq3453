@@ -51,28 +51,23 @@
       border-radius: 15px;
       display: inline-block;
       text-align: center;
-      margin-bottom: 20px;
+    }
+
+    /* Button styling */
+    .copy-button {
+      background-color: #32cd32; /* Green */
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 15px;
     }
 
     /* Link hover effect */
     .link:hover {
       color: white;
-    }
-
-    /* Button styling */
-    .copy-button {
-      background-color: green;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .copy-button:hover {
-      background-color: darkgreen;
     }
   </style>
 </head>
@@ -80,22 +75,21 @@
 
   <div class="frame">
     <div class="fade-text">SHADOW.CC, BEST HUBS OUT THERE</div>
-    <button class="copy-button" onclick="copyScript()">Copy FF2 Script</button>
+    <button class="copy-button" onclick="copyToClipboard()">Copy FF2 Script</button>
   </div>
 
   <!-- Link to shadow.cc/home -->
   <a href="https://shadow.cc/home" class="link">Visit Shadow.cc Home</a>
 
   <script>
-    function copyScript() {
-      const script = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/MobilesSupport/shadow.cc/best%20free%20script"))()';
-      navigator.clipboard.writeText(script).then(() => {
+    function copyToClipboard() {
+      const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/MobilesSupport/shadow.cc/best%20free%20script"))()';
+      navigator.clipboard.writeText(text).then(() => {
         alert("Script copied to clipboard!");
       }).catch(err => {
-        console.error("Failed to copy script: ", err);
+        console.error("Failed to copy text: ", err);
       });
     }
   </script>
-
 </body>
 </html>
