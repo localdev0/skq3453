@@ -63,6 +63,7 @@
       font-size: 1.2em;
       cursor: pointer;
       margin-top: 15px;
+      margin-right: 10px; /* Space between buttons */
     }
 
     /* Link hover effect */
@@ -75,17 +76,27 @@
 
   <div class="frame">
     <div class="fade-text">SHADOW.CC, BEST HUBS OUT THERE</div>
-    <button class="copy-button" onclick="copyToClipboard()">Copy FF2 Script</button>
+    <button class="copy-button" onclick="copyFF2Script()">Copy FF2 Script</button>
+    <button class="copy-button" onclick="copyBBLScript()">Copy BBL Script</button>
   </div>
 
   <!-- Link to shadow.cc/home -->
   <a href="https://shadow.cc/home" class="link">Visit Shadow.cc Home</a>
 
   <script>
-    function copyToClipboard() {
+    function copyFF2Script() {
       const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/MobilesSupport/shadow.cc/best%20free%20script"))()';
       navigator.clipboard.writeText(text).then(() => {
-        alert("Script copied to clipboard!");
+        alert("FF2 Script copied to clipboard!");
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    }
+
+    function copyBBLScript() {
+      const text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadowcc-git/Shadow.CCC/refs/heads/main/Basketball/Legends/Shadow.cc"))()';
+      navigator.clipboard.writeText(text).then(() => {
+        alert("BBL Script copied to clipboard!");
       }).catch(err => {
         console.error("Failed to copy text: ", err);
       });
