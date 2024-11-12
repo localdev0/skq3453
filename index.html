@@ -50,6 +50,92 @@
       padding: 20px;
       border-radius: 15px;
       display: inline-block;
+      text-align: center;
+    }
+
+    /* Button styling */
+    .copy-button {
+      background-color: green;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    /* Link hover effect */
+    .link:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="frame">
+    <div class="fade-text">SHADOW.CC, BEST HUBS OUT THERE</div>
+    <button class="copy-button" onclick="copyScript()">Copy FF2 Script</button>
+  </div>
+
+  <!-- Link to shadow.cc/home -->
+  <a href="https://shadow.cc/home" class="link">Visit Shadow.cc Home</a>
+
+  <script>
+    // Copy script functionality
+    function copyScript() {
+      const scriptText = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow.cc - Best Hubs</title>
+  <style>
+    /* Body styling */
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+
+    /* Text fade effect */
+    .fade-text {
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      animation: fadeIn 3s ease-in-out infinite alternate;
+    }
+
+    /* Fade animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0.3;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Link styling */
+    .link {
+      color: #999999;
+      text-decoration: none;
+      margin-top: 20px;
+      font-size: 1.5em;
+    }
+
+    /* Frame styling */
+    .frame {
+      border: 3px solid rgb(51, 51, 51);
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
     }
 
     /* Link hover effect */
@@ -66,6 +152,14 @@
 
   <!-- Link to shadow.cc/home -->
   <a href="https://shadow.cc/home" class="link">Visit Shadow.cc Home</a>
+
+</body>
+</html>`;
+      navigator.clipboard.writeText(scriptText)
+        .then(() => alert('FF2 Script copied to clipboard!'))
+        .catch(err => alert('Failed to copy the script.'));
+    }
+  </script>
 
 </body>
 </html>
