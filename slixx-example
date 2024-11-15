@@ -1,0 +1,21 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/skq3453/skq3453/refs/heads/main/slixx-source23"))();
+
+lib:SetTitle("Aoki's UI Lib")
+
+local tab1 = lib:NewTab("Main")
+
+tab1:NewToggle("Auto Win",false,function(bool)
+
+end)
+tab1:NewDropdown("Dropdown",{"1","2","3","4","5"},"hi",function(selected)
+	print(selected)
+end)
+tab1:NewTextBox("WalkSpeed","Enter WalkSpeed",function(value)
+
+end)
+tab1:NewSlider("WalkSpeed",16,500,16,function(value)
+ 
+end)
+tab1:NewButton("Change Jump Height to 110",function()
+
+end)
