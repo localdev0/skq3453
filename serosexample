@@ -1,6 +1,6 @@
 
 
-local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/skq3453/skq3453/refs/heads/main/seros1"))()
+local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/skq3453/skq3453/refs/heads/main/serosremake"))()
 UI = UI.init("Showcase", "v1.0.0", "SHOWCASE")
 
 local AimOne, AimTwo = UI:AddTab("Aim", "Silent Aim") do
