@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/skq3453/skq3453/refs/heads/main/slixx-source23"))();
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/skq3453/skq3453/refs/heads/main/slixx-source"))();
 
 lib:SetTitle("Aoki's UI Lib")
 
