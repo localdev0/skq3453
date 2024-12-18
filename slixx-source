@@ -411,113 +411,116 @@ function lib:NewTab(name, desc)
 
 
 	end
-	function tabFuncs:NewSlider(name,minimium,maximium,default,callback)
-		local Slider = Instance.new("TextButton")
-		Slider.AutoButtonColor = false
-		Slider.Name = name
-		Slider.TextTransparency = 1
-		Slider.Parent = ScrollingFrame
-		Slider.Size = UDim2.new(0.95,0,0,50)
-		Slider.BackgroundColor3 = Color3.fromRGB(25,25,25)
-		Slider.BackgroundTransparency = 0;
-		Slider.BorderSizePixel = 0
-
-
-		local UICorner = Instance.new("UICorner",Slider)
-		UICorner.CornerRadius = UDim.new(0,8)
-
-		local SliderBG = Instance.new("Frame")
-		SliderBG.Name = "SliderBG"
-		SliderBG.Parent = Slider
-		SliderBG.AnchorPoint = Vector2.new(0, 0.5)
-		SliderBG.Position = UDim2.new(0,16,0.67,0)
-		SliderBG.BackgroundColor3 = Color3.fromRGB(25,25,25)
-		SliderBG.Size = UDim2.new(0,418,0,7)
-		SliderBG.Visible = true;
-		SliderBG.BorderSizePixel = 0
-
-		local SliderText = Instance.new("TextLabel")
-		SliderText.Parent = Slider;
-		SliderText.Text = name
-		SliderText.Name = "SliderText"
-		SliderText.BackgroundTransparency = 1;
-		SliderText.TextSize = 18;
-		SliderText.AnchorPoint = Vector2.new(1,0)
-		SliderText.TextColor3 = Color3.fromRGB(105,122,141)
-		SliderText.Font = Enum.Font.SourceSansSemibold
-		SliderText.Position = UDim2.new(0,16,0.2, 0)
-		SliderText.TextXAlignment = Enum.TextXAlignment.Center
-
-		local pad = Instance.new("UIPadding",SliderText)
-		pad.PaddingLeft = UDim.new(0,124)
-
-		local SliderValue = Instance.new("TextLabel")
-		SliderValue.AnchorPoint = Vector2.new(0.5,0.5)
-		SliderValue.TextSize = 18
-		SliderValue.Parent = Slider
-		SliderValue.Position = UDim2.new(0.8,0,0.16,0)
-		SliderValue.TextColor3 = Color3.fromRGB(105,122,141)
-		SliderValue.TextTransparency = 0.53
-		SliderValue.Font = Enum.Font.SourceSansSemibold
-		SliderValue.BorderSizePixel = 0;
-		SliderValue.BackgroundTransparency = 1;
-		SliderValue.Text = minimium
-
-		local minvalue = minimium;
-		local maxvalue = maximium;
-
-		local Bar = Instance.new("Frame")
-		Bar.Parent = SliderBG
-		Bar.BackgroundColor3 = Color3.fromRGB(105,108,255)
-		Bar.Size = UDim2.new(0.1,0,0,7)
-		Bar.AnchorPoint = Vector2.new(0,0.5)
-		Bar.Position = UDim2.new(0,0,0.5,0)
-		Bar.BorderSizePixel = 0
-
-		local corner = Instance.new("UICorner")
-		corner.Parent = Bar;
-		corner.CornerRadius = UDim.new(0,4)
-
-
-		callback  = callback or function() end
-		local script = Slider
-		local sliderbutton = script
-		local sliderframe = Bar
-		local slidertext = SliderText
-
-		local mouse = plr:GetMouse()
-		local uis = game:GetService("UserInputService")
-
-
-		SliderValue.Text = default
-		callback(default)
-
-		sliderbutton.MouseButton1Down:Connect(function()
-			local rel = (mouse.X - SliderBG.AbsolutePosition.X)
-			local relpercent = (rel / SliderBG.AbsoluteSize.X)*100
-			local realpercent = math.clamp((maxvalue - minvalue)*(relpercent / 100)+minvalue,minvalue,maxvalue)
-			SliderValue.Text = tostring(math.round(realpercent))
-			Bar:TweenSize(UDim2.new(0,math.clamp(mouse.X - SliderBG.AbsolutePosition.X,0,418),0,7),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1,true)
-			spawn(function()
-				callback(realpercent)
-			end)
-			local move = mouse.Move:Connect(function()
-				local rel = (mouse.X - SliderBG.AbsolutePosition.X)
-				local relpercent = (rel / SliderBG.AbsoluteSize.X)*100
-				local realpercent = math.clamp((maxvalue - minvalue)*(relpercent / 100)+minvalue,minvalue,maxvalue)
-				SliderValue.Text = tostring(math.round(realpercent))
-				Bar:TweenSize(UDim2.new(0,math.clamp(mouse.X - SliderBG.AbsolutePosition.X,0,418),0,7),Enum.EasingDirection.In,Enum.EasingStyle.Linear,0.1,true)
-				spawn(function()
-					callback(realpercent)
-				end)
-			end)
-			uis.InputEnded:Connect(function(key)
-				if key.UserInputType == Enum.UserInputType.MouseButton1 then
-					move:Disconnect()
-				end
-			end)
-		end)
+	function tabFuncs:NewSlider(name, minimium, maximium, default, callback)
+	    local Slider = Instance.new("TextButton")
+	    Slider.AutoButtonColor = false
+	    Slider.Name = name
+	    Slider.TextTransparency = 1
+	    Slider.Parent = ScrollingFrame
+	    Slider.Size = UDim2.new(0.95, 0, 0, 50)
+	    Slider.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	    Slider.BackgroundTransparency = 0
+	    Slider.BorderSizePixel = 0
+	
+	    local UICorner = Instance.new("UICorner", Slider)
+	    UICorner.CornerRadius = UDim.new(0, 8)
+	
+	    local SliderBG = Instance.new("Frame")
+	    SliderBG.Name = "SliderBG"
+	    SliderBG.Parent = Slider
+	    SliderBG.AnchorPoint = Vector2.new(0, 0.5)
+	    SliderBG.Position = UDim2.new(0, 16, 0.67, 0)
+	    SliderBG.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	    SliderBG.Size = UDim2.new(0, 418, 0, 7)
+	    SliderBG.Visible = true
+	    SliderBG.BorderSizePixel = 0
+	
+	    local SliderText = Instance.new("TextLabel")
+	    SliderText.Parent = Slider
+	    SliderText.Text = name
+	    SliderText.Name = "SliderText"
+	    SliderText.BackgroundTransparency = 1
+	    SliderText.TextSize = 18
+	    SliderText.AnchorPoint = Vector2.new(1, 0)
+	    SliderText.TextColor3 = Color3.fromRGB(105, 122, 141)
+	    SliderText.Font = Enum.Font.SourceSansSemibold
+	    SliderText.Position = UDim2.new(0, 16, 0.2, 0)
+	    SliderText.TextXAlignment = Enum.TextXAlignment.Center
+	
+	    local pad = Instance.new("UIPadding", SliderText)
+	    pad.PaddingLeft = UDim.new(0, 124)
+	
+	    local SliderValue = Instance.new("TextLabel")
+	    SliderValue.AnchorPoint = Vector2.new(0.5, 0.5)
+	    SliderValue.TextSize = 18
+	    SliderValue.Parent = Slider
+	    SliderValue.Position = UDim2.new(0.8, 0, 0.16, 0)
+	    SliderValue.TextColor3 = Color3.fromRGB(105, 122, 141)
+	    SliderValue.TextTransparency = 0.53
+	    SliderValue.Font = Enum.Font.SourceSansSemibold
+	    SliderValue.BorderSizePixel = 0
+	    SliderValue.BackgroundTransparency = 1
+	    SliderValue.Text = tostring(minimium)
+	
+	    local minvalue = minimium
+	    local maxvalue = maximium
+	
+	    local Bar = Instance.new("Frame")
+	    Bar.Parent = SliderBG
+	    Bar.BackgroundColor3 = Color3.fromRGB(105, 108, 255)
+	    Bar.Size = UDim2.new(0.1, 0, 0, 7)
+	    Bar.AnchorPoint = Vector2.new(0, 0.5)
+	    Bar.Position = UDim2.new(0, 0, 0.5, 0)
+	    Bar.BorderSizePixel = 0
+	
+	    local corner = Instance.new("UICorner")
+	    corner.Parent = Bar
+	    corner.CornerRadius = UDim.new(0, 4)
+	
+	    callback = callback or function() end
+	    local sliderbutton = Slider
+	    local sliderframe = Bar
+	    local slidertext = SliderText
+	
+	    local mouse = plr:GetMouse()
+	    local uis = game:GetService("UserInputService")
+	
+	    SliderValue.Text = tostring(default)
+	    callback(default)
+	
+	    local increment = 0.1
+	    sliderbutton.MouseButton1Down:Connect(function()
+	        local rel = (mouse.X - SliderBG.AbsolutePosition.X)
+	        local relpercent = (rel / SliderBG.AbsoluteSize.X) * 100
+	        local realpercent = math.clamp((maxvalue - minvalue) * (relpercent / 100) + minvalue, minvalue, maxvalue)
+	        SliderValue.Text = tostring(math.round(realpercent * 10) / 10) -- Rounded to nearest 0.1
+	        Bar:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderBG.AbsolutePosition.X, 0, 418), 0, 7), Enum.EasingDirection.In, Enum.EasingStyle.Linear, 0.1, true)
+	
+	        spawn(function()
+	            callback(realpercent)
+	        end)
+	
+	        local move = mouse.Move:Connect(function()
+	            local rel = (mouse.X - SliderBG.AbsolutePosition.X)
+	            local relpercent = (rel / SliderBG.AbsoluteSize.X) * 100
+	            local realpercent = math.clamp((maxvalue - minvalue) * (relpercent / 100) + minvalue, minvalue, maxvalue)
+	            realpercent = math.round(realpercent * 10) / 10 -- Rounded to nearest 0.1
+	            SliderValue.Text = tostring(realpercent)
+	            Bar:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderBG.AbsolutePosition.X, 0, 418), 0, 7), Enum.EasingDirection.In, Enum.EasingStyle.Linear, 0.1, true)
+	
+	            spawn(function()
+	                callback(realpercent)
+	            end)
+	        end)
+	
+	        uis.InputEnded:Connect(function(key)
+	            if key.UserInputType == Enum.UserInputType.MouseButton1 then
+	                move:Disconnect()
+	            end
+	        end)
+	    end)
 	end
+
 	function tabFuncs:NewDropdown(name,list,default,callback)
 		local Dropdown = Instance.new("TextButton")
 		Dropdown.Name = "Dropdown"
